@@ -1,25 +1,37 @@
-valor1 = float(input("Digite um número: "))
-valor2 = float(input("Digite outro número: "))
-operacao = input("Digite a operação (+, -, *, /): ")
+def calculadora():
+    while True:
+        print("\n--- CALCULADORA ---")
+        
+        entrada = input("Digite o primeiro número (ou 's' para sair): ").strip()
+        if entrada.lower() == 's':
+            print("Encerrando a calculadora. Até logo!")
+            break
 
-if operacao == "+":
-    resultado = valor1 + valor2
-    print("O resultado é: ", resultado)
+        try:
+            valor1 = float(entrada)
+            operacao = input("Digite a operação (+, -, *, /): ").strip()
+            valor2 = float(input("Digite o segundo número: "))
+        except ValueError:
+            print("Erro: Por favor, digite apenas valores numéricos válidos.")
+            continue
 
-elif operacao == "-":
-    resultado = valor1 - valor2
-    print("O resultado é: ", resultado)
+        match operacao:
+            case "+":
+                resultado = valor1 + valor2
+            case "-":
+                resultado = valor1 - valor2
+            case "*":
+                resultado = valor1 * valor2
+            case "/":
+                if valor2 == 0:
+                    print("Erro: Divisão por zero não é permitida.")
+                    continue
+                resultado = valor1 / valor2
+            case _:
+                print("Erro: Operação inválida.")
+                continue
 
-elif operacao == "*":
-    resultado = valor1 * valor2
-    print("O resultado é: ", resultado)
+        print(f"\nResultado: {valor1} {operacao} {valor2} = {resultado}")
 
-elif operacao == "/":
-    if valor2 != 0:
-        resultado = valor1 / valor2
-        print("O resultado é: ", resultado)
-    else:
-        print("Erro: não é possível dividir por zero.")
-
-else:
-    print("Operação inválida.")
+if __name__ == "__main__":
+    calculadora()
